@@ -38,6 +38,8 @@ public class PlayerScript : MonoBehaviour
 
 
         playerMove();
+
+        jump();
     }
 
     void playerMove()
@@ -55,6 +57,14 @@ public class PlayerScript : MonoBehaviour
 
             Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             cC.Move(direction.normalized * playerSpeed * Time.deltaTime);
+        }
+    }
+
+    void jump()
+    {
+        if(Input.GetButtonDown("Jump") && onSurface)
+        {
+            velocity.y = Mathf.Sqrt(jumpRange * -2 * gravity);
         }
     }
 }
