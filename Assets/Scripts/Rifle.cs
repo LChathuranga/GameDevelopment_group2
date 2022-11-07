@@ -120,12 +120,17 @@ public class Rifle : MonoBehaviour
         player.playerSprint = 0f;
         setReloading = true;
         Debug.Log("Reloading...");
+
         //play anim
+        animator.SetBool("Reloading", true);
+
         //play reload sound
 
         yield return new WaitForSeconds(reloadingTime);
 
         //play anim
+        animator.SetBool("Reloading", false);
+       
         presentAmmunition = maximumAmmunition;
         player.playerSpeed = 1.9f;
         player.playerSprint = 3;
