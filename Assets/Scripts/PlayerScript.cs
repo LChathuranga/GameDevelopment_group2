@@ -34,7 +34,10 @@ public class PlayerScript : MonoBehaviour
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+<<<<<<< HEAD
         presentHealth = playerHealth;
+=======
+>>>>>>> d1b2468588c3c81883d1e2e510bfdaa7cc61c6f0
     }
 
     private void Update()

@@ -5,15 +5,21 @@ using UnityEngine.AI;
 
 public class Zombie1 : MonoBehaviour
 {
+<<<<<<< HEAD
     [Header("Zombie Health and Damage")]
     public float giveDamage = 5f;
 
 
+=======
+>>>>>>> d1b2468588c3c81883d1e2e510bfdaa7cc61c6f0
     [Header("Zombie Things")]
     public NavMeshAgent zombieAgent;
     public Transform playerBody;
     public Transform LookPoint;
+<<<<<<< HEAD
     public Camera AttackingRacastingArea;
+=======
+>>>>>>> d1b2468588c3c81883d1e2e510bfdaa7cc61c6f0
     public LayerMask PlayerLayer;
 
     [Header("Zombie guarding Var")]
@@ -22,10 +28,13 @@ public class Zombie1 : MonoBehaviour
     public float zombieSpeed;
     float walkingPointRadius = 2;
 
+<<<<<<< HEAD
     [Header("Zombie attacking Var")]
     public float timeBtwAttack;
     bool previouslyAttack;
 
+=======
+>>>>>>> d1b2468588c3c81883d1e2e510bfdaa7cc61c6f0
     [Header("Zombie mood/state")]
     public float visionRadius;
     public float attackingRadius;
@@ -43,7 +52,10 @@ public class Zombie1 : MonoBehaviour
 
         if(!playerInVisionRadius && !playerInAttackingRadius) Guard();
         if(playerInVisionRadius && !playerInAttackingRadius) Pursueplayer();
+<<<<<<< HEAD
         if(playerInVisionRadius && playerInAttackingRadius) AttackPlayer();
+=======
+>>>>>>> d1b2468588c3c81883d1e2e510bfdaa7cc61c6f0
     }
     private void Guard()
     {
@@ -63,6 +75,7 @@ public class Zombie1 : MonoBehaviour
     {
         zombieAgent.SetDestination(playerBody.position);
     }
+<<<<<<< HEAD
     private void AttackPlayer()
     {
         zombieAgent.SetDestination(transform.position);
@@ -89,4 +102,6 @@ public class Zombie1 : MonoBehaviour
     {
         previouslyAttack = false;
     }
+=======
+>>>>>>> d1b2468588c3c81883d1e2e510bfdaa7cc61c6f0
 }
