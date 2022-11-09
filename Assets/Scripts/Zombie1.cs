@@ -8,6 +8,7 @@ public class Zombie1 : MonoBehaviour
     [Header("Zombie Things")]
     public NavMeshAgent zombieAgent;
     public Transform lookPoint;
+    public Transform playerBody;
     public LayerMask playerLayer;
 
     [Header("Zombie Guarding Var")]
@@ -34,6 +35,8 @@ public class Zombie1 : MonoBehaviour
         playerInAttackingRadious = Physics.CheckSphere(transform.position, attackingRadious, playerLayer);
 
         if (!playerInVisionRadious && !playerInAttackingRadious) Guard();
+        if (playerInVisionRadious && !playerInAttackingRadious) PursuePlayer();
+        
 
     }
 
@@ -49,5 +52,14 @@ public class Zombie1 : MonoBehaviour
         }
         transform.position = Vector3.MoveTowards(transform.position, walkPoints[currentZombiePosition].transform.position, Time.deltaTime * zombieSpeed);
         // change zombie facing
+        transform.LookAt(walkPoints[currentZombiePosition].transform.position);
+
     }
+
+    private void PursuePlayer() 
+    {
+        zombieAgent.SetDestination(playerBody.position);
+    }
+
+
 }
