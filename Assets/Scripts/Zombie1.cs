@@ -47,6 +47,7 @@ public class Zombie1 : MonoBehaviour
         }
         transform.position = Vector3.MoveTowards(transform.position, walkPoints[currentZombiePosition].transform.position, Time.deltaTime * zombieSpeed);
         //change zombie facing
+        transform.LookAt(walkPoints[currentZombiePosition].transform.position);
     }
     private void Pursueplayer()
     {
