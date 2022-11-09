@@ -9,6 +9,10 @@ public class PlayerScript : MonoBehaviour
     public float playerSpeed = 1.9f;
     public float playerSprint = 3f;
 
+    [Header("Player health Things")]
+    private float playerHealth = 120f;
+    public float presentHealth;
+
     [Header("Player Script Camera")]
     public Transform playerCamera;
 
@@ -27,11 +31,17 @@ public class PlayerScript : MonoBehaviour
     public float surfaceDistance = 0.4f;
     public LayerMask surfaceMask;
 
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        presentHealth = playerHealth;
+    }
+
     private void Update()
     {
         onSurface = Physics.CheckSphere(surfaceCheck.position, surfaceDistance, surfaceMask);
 
-        Cursor.lockState = CursorLockMode.Locked;
+
 
         if (onSurface && velocity.y < 0)
         {
@@ -124,5 +134,18 @@ public class PlayerScript : MonoBehaviour
                 animator.SetBool("Running", false);
             }
         }
+    }
+    public void playerHitDamage(float takeDamage)
+    {
+        presentHealth -= takeDamage;
+
+        if(presentHealth <= 0)
+        {
+            PlayerDie();
+        }
+    }
+    private void PlayerDie()
+    {
+        Object.Destroy(gameObject, 1.0f);
     }
 }
