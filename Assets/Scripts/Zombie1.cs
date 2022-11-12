@@ -81,6 +81,14 @@ public class Zombie1 : MonoBehaviour
             if(Physics.Raycast(AttackingRaycastArea.transform.position, AttackingRaycastArea.transform.forward, out hitInfo, attackingRadious))
             {
                 Debug.Log("Hit" + hitInfo.transform.name);
+
+                //if we hit whatever we want to hit and that object has player script
+                PlayerScript playerBody = hitInfo.transform.GetComponent<PlayerScript>();
+
+                if(playerBody != null)
+                {
+                    playerBody.PlayerHitDamage(giveDamage);
+                }
             }
 
             previouslyAttack = true;
