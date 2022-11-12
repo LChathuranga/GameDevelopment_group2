@@ -27,6 +27,9 @@ public class Zombie1 : MonoBehaviour
     public float timeBtwAttack;
     bool previouslyAttack;
 
+    [Header("Zombie Animation")]
+    public Animator anim;
+
 
     [Header("Zombie mood/status")]
     public float visionRadious;
@@ -71,7 +74,23 @@ public class Zombie1 : MonoBehaviour
 
     private void PursuePlayer() 
     {
-        zombieAgent.SetDestination(playerBody.position);
+       if (zombieAgent.SetDestination(playerBody.position))
+       {
+            //animation
+            anim.SetBool("Walking",false);
+            anim.SetBool("Running",true);
+            anim.SetBool("Attacking",false);
+            anim.SetBool("Died",false);
+
+       }
+       else
+       {
+            //animation
+            anim.SetBool("Walking",false);
+            anim.SetBool("Running",false);
+            anim.SetBool("Attacking",false);
+            anim.SetBool("Died",true);
+       }
     }
 
     private void AttackPlayer()
@@ -92,6 +111,12 @@ public class Zombie1 : MonoBehaviour
                 {
                     playerBody.PlayerHitDamage(giveDamage);
                 }
+
+                //animation
+            anim.SetBool("Walking",false);
+            anim.SetBool("Running",false);
+            anim.SetBool("Attacking",true);
+            anim.SetBool("Died",false);
             }
 
             previouslyAttack = true;
@@ -110,6 +135,12 @@ public class Zombie1 : MonoBehaviour
         presentHealth -= takeDamage;
         if(presentHealth <= 0)
         {
+            //animation
+            anim.SetBool("Walking",false);
+            anim.SetBool("Running",false);
+            anim.SetBool("Attacking",false);
+            anim.SetBool("Died",true);
+
             zombieDie();
         }
     }
