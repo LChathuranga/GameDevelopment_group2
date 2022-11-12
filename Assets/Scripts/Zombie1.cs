@@ -5,9 +5,13 @@ using UnityEngine.AI;
 
 public class Zombie1 : MonoBehaviour
 {
+    [Header("Zombie Health and Damage")]
+    public float giveDamage = 5f;
+
     [Header("Zombie Things")]
     public NavMeshAgent zombieAgent;
     public Transform lookPoint;
+    public Camera AttackingRaycastArea;
     public Transform playerBody;
     public LayerMask playerLayer;
 
@@ -16,6 +20,11 @@ public class Zombie1 : MonoBehaviour
     int currentZombiePosition = 0;
     public float zombieSpeed;
     float walkPointRadious = 2;
+
+    [Header("Zombie Attack Var")]
+    public float timeBtwAttack;
+    bool previouslyAttack;
+
 
     [Header("Zombie mood/status")]
     public float visionRadious;
@@ -36,6 +45,7 @@ public class Zombie1 : MonoBehaviour
 
         if (!playerInVisionRadious && !playerInAttackingRadious) Guard();
         if (playerInVisionRadious && !playerInAttackingRadious) PursuePlayer();
+        if (playerInVisionRadious && playerInAttackingRadious) AttackPlayer();
         
 
     }
@@ -59,6 +69,29 @@ public class Zombie1 : MonoBehaviour
     private void PursuePlayer() 
     {
         zombieAgent.SetDestination(playerBody.position);
+    }
+
+    private void AttackPlayer()
+    {
+        zombieAgent.SetDestination(transform.position);
+        transform.LookAt(lookPoint);
+        if(!previouslyAttack)
+        {
+            RaycastHit hitInfo;
+            if(Physics.Raycast(AttackingRaycastArea.transform.position, AttackingRaycastArea.transform.forward, out hitInfo, attackingRadious))
+            {
+                Debug.Log("Hit" + hitInfo.transform.name);
+            }
+
+            previouslyAttack = true;
+            Invoke(nameof(ActiveAttacking), timeBtwAttack);
+
+        }
+    }
+
+    private void ActiveAttacking()
+    {
+        previouslyAttack = false;
     }
 
 
