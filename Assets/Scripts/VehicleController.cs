@@ -19,11 +19,18 @@ public class VehicleController : MonoBehaviour
     [Header("Engine")]
     public float accelerationFourse=100f;
     public float presentAcceleration=0f;
+    public float breackFource = 200f;
+    public float presentBreackFource = 0f;
+
+    [Header("Vehicle Stearing")]
+    public float wheelsTorque = 20f;
+    public float presentTurnAngle = 0f;
 
 
     private void Update()
     {
         MoveVehicle();
+        VehicleStearing();
     }
 
     void MoveVehicle()
@@ -34,6 +41,30 @@ public class VehicleController : MonoBehaviour
         backLeftColider.motorTorque = presentAcceleration;
 
         presentAcceleration = accelerationFourse * -Input.GetAxis("Vertical");
+    }
+
+    void VehicleStearing()
+    {
+        presentTurnAngle = wheelsTorque * Input.GetAxis("Horizontal");
+
+        frontLeftColider.steerAngle = presentTurnAngle;
+        frontRightColider.steerAngle = presentTurnAngle;
+
+        //Animation
+        StearingWheels(frontLeftColider, frontLeftTransform);
+        StearingWheels(frontRightColider, frontRightTransform);
+        StearingWheels(backRightColider, backRightTransform);
+        StearingWheels(backLeftColider, backLeftTransform);
+
+    }
+    void StearingWheels(WheelCollider wc,Transform wt)
+    {
+        Vector3 position;
+        Quaternion rotation;
+
+        wc.GetWorldPose(out position, out rotation);
+        wt.position = position;
+        wt.rotation = rotation;
     }
 }
 
