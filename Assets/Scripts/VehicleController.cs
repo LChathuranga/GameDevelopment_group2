@@ -26,12 +26,69 @@ public class VehicleController : MonoBehaviour
     public float wheelsTorque = 20f;
     public float presentTurnAngle = 0f;
 
+    [Header("Vehicle Sequrity")]
+    public PlayerScript player;
+    public Transform vehicleDoor;
+    public float radius = 15f;
+    public bool isOpend=false;
+
+
+    [Header("Disable Things")]
+    public GameObject Aimcam;
+    public GameObject AimCanvas;
+    public GameObject thirdPersonCam;
+    public GameObject thirdPersonCanvas;
+    public GameObject PlayerCharacter;
+
+    
 
     private void Update()
     {
-        MoveVehicle();
-        VehicleStearing();
-        ApplyBreack();
+        //Debug.Log(Vector3.Distance(transform.position, player.transform.position));
+        if (Vector3.Distance(transform.position, player.transform.position) < radius)
+        {
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                isOpend = true;
+                radius = 5000f;
+            }
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                player.transform.position = vehicleDoor.transform.position;
+                radius = 15f;
+                isOpend = false;
+            }
+        }
+
+        if (isOpend==true)
+        {
+           
+            Aimcam.SetActive(false);
+            AimCanvas.SetActive(false);
+            thirdPersonCam.SetActive(false);
+            thirdPersonCanvas.SetActive(false);
+            PlayerCharacter.SetActive(false);
+
+            MoveVehicle();
+            VehicleStearing();
+            ApplyBreack();
+
+        }
+        else if(isOpend==false)
+        {
+            Aimcam.SetActive(true);
+            AimCanvas.SetActive(true);
+            thirdPersonCam.SetActive(true);
+            thirdPersonCanvas.SetActive(true);
+            PlayerCharacter.SetActive(true);
+        }
+        
+          
+            
+
+        
+
+        
     }
 
     void MoveVehicle()
