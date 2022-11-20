@@ -31,6 +31,7 @@ public class VehicleController : MonoBehaviour
     {
         MoveVehicle();
         VehicleStearing();
+        ApplyBreack();
     }
 
     void MoveVehicle()
@@ -65,6 +66,21 @@ public class VehicleController : MonoBehaviour
         wc.GetWorldPose(out position, out rotation);
         wt.position = position;
         wt.rotation = rotation;
+    }
+    void ApplyBreack()
+    {
+        if (Input.GetKey(KeyCode.Space))
+        {
+            presentBreackFource = breackFource;
+        }
+        else
+        {
+            presentBreackFource = 0;
+        }
+        frontRightColider.brakeTorque = presentBreackFource;
+        frontLeftColider.brakeTorque = presentBreackFource;
+        backLeftColider.brakeTorque = presentBreackFource;
+        backRightColider.brakeTorque = presentBreackFource;
     }
 }
 
