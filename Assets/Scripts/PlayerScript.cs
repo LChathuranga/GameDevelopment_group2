@@ -10,10 +10,12 @@ public class PlayerScript : MonoBehaviour
     public float playerSprint = 3f;
 
     [Header("Player Health Things")]
-    private float playerHealth = 120f;
+    private float playerHealth = 100f;
     public float presentHealth;
     public GameObject playerDamage;
     public HealthBar healthBar;
+
+    public ProgressBar Pb;
 
     [Header("Player Script Camera")]
     public Transform playerCamera;
@@ -60,6 +62,8 @@ public class PlayerScript : MonoBehaviour
         jump();
 
         sprint();
+
+        Pb.BarValue = presentHealth;
     }
 
     void playerMove()
