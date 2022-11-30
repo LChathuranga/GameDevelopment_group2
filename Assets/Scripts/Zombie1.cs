@@ -10,6 +10,8 @@ public class Zombie1 : MonoBehaviour
     private float presentHealth;
     public float giveDamage = 5f;
 
+     public ProgressBar Pb;
+
     [Header("Zombie Things")]
     public NavMeshAgent zombieAgent;
     public Transform lookPoint;
@@ -52,6 +54,15 @@ public class Zombie1 : MonoBehaviour
         if (!playerInVisionRadious && !playerInAttackingRadious) Guard();
         if (playerInVisionRadious && !playerInAttackingRadious) PursuePlayer();
         if (playerInVisionRadious && playerInAttackingRadious) AttackPlayer();
+
+        Pb.BarValue = presentHealth;
+
+        //after health is 0 pb is destroyed
+        if (presentHealth <= 0)
+        {
+            Destroy(Pb.gameObject);
+            Destroy(gameObject);
+        }
         
 
     }

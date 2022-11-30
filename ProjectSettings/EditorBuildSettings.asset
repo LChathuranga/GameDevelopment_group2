@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 43e35ab3dcdd3964a89165a27975bab1
+  - enabled: 1
+    path: Assets/Flooded_Grounds/Scenes/ZombieLand.unity
+    guid: c0d944ca9defd20449bc336e50d75a08
   m_configObjects: {}
